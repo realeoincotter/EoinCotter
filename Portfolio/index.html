@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>JS3</title>
+    <style>
+        :root {
+            --green: #2e7d5b;
+            --green-dark: #22604a;
+            --bg: #f3f6f4;
+            --card: #ffffff;
+            --text: #23302a;
+            --muted: #6b7a72;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 24px 16px;
+            font-family: Calibri, "Segoe UI", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            text-align: center;
+        }
+
+        .DivContainer {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin: 0 0 16px;
+            color: var(--green-dark);
+        }
+
+        /* Main image card */
+        .main-card {
+            background: var(--card);
+            border-radius: 14px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        #mainImage {
+            display: block;
+            width: 100%;
+            max-height: 480px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .controls {
+            margin-top: 14px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 999px;
+            background: var(--green);
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--green-dark);
+        }
+
+        /* Thumbnail cards */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+            gap: 16px;
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
+            transition: transform 0.2s, box-shadow 0.2s, outline-color 0.2s;
+            outline: 3px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.14);
+        }
+
+        .card.active {
+            outline-color: var(--green);
+        }
+
+        .card a {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .demo {
+            display: block;
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+
+        .demo:hover,
+        .card.active .demo {
+            opacity: 1;
+        }
+
+        .card-caption {
+            padding: 10px 12px 12px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+    </style>
+    <script>
+        let currentImg = 1;
+
+        function showImage(num) {
+            currentImg = num;
+            document.getElementById("mainImage").src = "JS3ImagesStart/images/ireland" + currentImg + ".jpg";
+            highlight();
+        }
+
+        // Outline the card that matches the image on screen
+        function highlight() {
+            document.querySelectorAll(".card").forEach(function (card) {
+                card.classList.toggle("active", card.dataset.num == currentImg);
+            });
+        }
+
+        function swap(event) {
+            event.preventDefault();
+            showImage(Number(this.id.charAt(4)));
+        }
+
+        function next(event) {
+            event.preventDefault();
+            showImage(currentImg === 5 ? 1 : currentImg + 1); // Loop back to the first image
+        }
+
+        function previous(event) {
+            event.preventDefault();
+            showImage(currentImg === 1 ? 5 : currentImg - 1); // Loop back to the last image
+        }
+    </script>
+</head>
+<body>
+<div class="DivContainer">
+    <h1>Ireland</h1>
+
+    <div class="main-card">
+        <img src="JS3ImagesStart/images/ireland1.jpg" alt="Beautiful Irish scenery" id="mainImage">
+
+        <div class="controls">
+            <a href="#" id="previous" class="btn">&#8249; Previous</a>
+            <a href="#" id="next" class="btn">Next &#8250;</a>
+        </div>
+    </div>
+
+    <div class="gallery">
+        <div class="card" data-num="1">
+            <a href="#" id="link1">
+                <img class="demo" src="JS3ImagesStart/images/thumbnails/ireland1_tb.jpg" alt="Beautiful Irish scenery">
+                <div class="card-caption">Beautiful Irish scenery</div>
+            </a>
+        </div>
+
+        <div class="card" data-num="2">
+            <a href="#" id="link2">
+                <img class="demo" src="JS3ImagesStart/images/thumbnails/ireland2_tb.jpg" alt="Sun setting over irish cliff">
+                <div class="card-caption">Sun setting over Irish cliff</div>
+            </a>
+        </div>
+
+        <div class="card" data-num="3">
+            <a href="#" id="link3">
+                <img class="demo" src="JS3ImagesStart/images/thumbnails/ireland3_tb.jpg" alt="Castle in Ireland">
+                <div class="card-caption">Castle in Ireland</div>
+            </a>
+        </div>
+
+        <div class="card" data-num="4">
+            <a href="#" id="link4">
+                <img class="demo" src="JS3ImagesStart/images/thumbnails/ireland4_tb.jpg" alt="Irish Cliffs">
+                <div class="card-caption">Irish Cliffs</div>
+            </a>
+        </div>
+
+        <div class="card" data-num="5">
+            <a href="#" id="link5">
+                <img class="demo" src="JS3ImagesStart/images/thumbnails/ireland5_tb.jpg" alt="Irish town">
+                <div class="card-caption">Irish town</div>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("link1").addEventListener("click", swap);
+        document.getElementById("link2").addEventListener("click", swap);
+        document.getElementById("link3").addEventListener("click", swap);
+        document.getElementById("link4").addEventListener("click", swap);
+        document.getElementById("link5").addEventListener("click", swap);
+
+        document.getElementById("previous").addEventListener("click", previous);
+        document.getElementById("next").addEventListener("click", next);
+
+        highlight();
+    </script>
+</div>
+</body>
+</html>
