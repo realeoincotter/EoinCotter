@@ -3,22 +3,38 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>JS3</title>
+    <title>Eoin Cotter | Portfolio</title>
     <style>
         :root {
-            --green: #2e7d5b;
-            --green-dark: #22604a;
-            --bg: #f3f6f4;
-            --card: #ffffff;
-            --text: #23302a;
-            --muted: #6b7a72;
+            /* Green shades built around #2BFF00, light to dark */
+            --green-100: #d5ffcc;
+            --green-300: #80ff66;
+            --green-500: #2bff00;
+            --green-700: #1a9900;
+            --green-900: #0b4000;
+
+            /* Black base */
+            --bg: #000000;
+            --card: #070a06;
+            --text: #eaffe5;
+            --muted: #8fb087;
         }
 
         * { box-sizing: border-box; }
 
+        /* Smooth scrolling for every in-page link and scrollIntoView() call */
+        html { scroll-behavior: smooth; }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+        }
+
+        /* Stop the sticky navbar covering the section you scroll to */
+        #about, #skills, #work { scroll-margin-top: 72px; }
+
         body {
             margin: 0;
-            padding: 24px 16px;
+            padding: 0 16px 32px;
             font-family: Calibri, "Segoe UI", sans-serif;
             background: var(--bg);
             color: var(--text);
@@ -30,18 +46,120 @@
             margin: 0 auto;
         }
 
+        /* Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px;
+            margin-bottom: 28px;
+            background: rgba(0, 0, 0, 0.9);
+            border-bottom: 1px solid var(--green-900);
+        }
+
+        .navbar a {
+            padding: 6px 16px;
+            border-radius: 999px;
+            color: var(--green-300);
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .navbar a:hover {
+            background: var(--green-500);
+            color: #000;
+        }
+
+        /* Profile photo */
+        .avatar {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 16px;
+            border-radius: 50%;
+            border: 2px dashed var(--green-700);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        /* Once a photo is inside, it fills the circle */
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Intro */
         h1 {
-            margin: 0 0 16px;
-            color: var(--green-dark);
+            margin: 0;
+            font-size: 44px;
+            color: var(--green-500);
+            text-shadow: 0 0 18px rgba(43, 255, 0, 0.35);
+        }
+
+        .tagline {
+            margin: 6px 0 0;
+            font-size: 18px;
+            color: var(--green-100);
+        }
+
+        .about {
+            max-width: 620px;
+            margin: 14px auto 0;
+            line-height: 1.5;
+            color: var(--muted);
+        }
+
+        .skills {
+            list-style: none;
+            padding: 0;
+            margin: 18px 0 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .skills li {
+            padding: 4px 12px;
+            border: 1px solid var(--green-700);
+            border-radius: 999px;
+            font-size: 14px;
+            color: var(--green-300);
+        }
+
+        h2 {
+            margin: 36px 0 16px;
+            font-size: 26px;
+            color: var(--green-300);
         }
 
         /* Main image card */
         .main-card {
             background: var(--card);
+            border: 1px solid var(--green-900);
             border-radius: 14px;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 0 24px rgba(43, 255, 0, 0.08);
             padding: 16px;
             margin-bottom: 24px;
+        }
+
+        #mainTitle {
+            margin: 0 0 12px;
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--green-500);
+        }
+
+        #mainLink {
+            display: block;
         }
 
         #mainImage {
@@ -50,6 +168,12 @@
             max-height: 480px;
             object-fit: cover;
             border-radius: 10px;
+        }
+
+        .hint {
+            margin: 10px 0 0;
+            font-size: 14px;
+            color: var(--muted);
         }
 
         .controls {
@@ -63,18 +187,19 @@
             display: inline-block;
             padding: 8px 20px;
             border-radius: 999px;
-            background: var(--green);
-            color: #fff;
+            background: var(--green-500);
+            color: #000;
             text-decoration: none;
             font-weight: bold;
-            transition: background 0.2s;
+            transition: background 0.2s, box-shadow 0.2s;
         }
 
         .btn:hover {
-            background: var(--green-dark);
+            background: var(--green-300);
+            box-shadow: 0 0 14px rgba(43, 255, 0, 0.6);
         }
 
-        /* Thumbnail cards */
+        /* Category cards */
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
@@ -83,20 +208,21 @@
 
         .card {
             background: var(--card);
+            border: 1px solid var(--green-900);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.07);
-            transition: transform 0.2s, box-shadow 0.2s, outline-color 0.2s;
-            outline: 3px solid transparent;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s, outline-color 0.2s;
+            outline: 2px solid transparent;
         }
 
         .card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.14);
+            border-color: var(--green-700);
+            box-shadow: 0 8px 22px rgba(43, 255, 0, 0.25);
         }
 
         .card.active {
-            outline-color: var(--green);
+            outline-color: var(--green-500);
         }
 
         .card a {
@@ -124,13 +250,36 @@
             font-size: 14px;
             color: var(--muted);
         }
+
+        .card.active .card-caption {
+            color: var(--green-300);
+        }
+
+        footer {
+            margin-top: 40px;
+            padding-top: 16px;
+            border-top: 1px solid var(--green-900);
+            font-size: 14px;
+            color: var(--muted);
+        }
     </style>
     <script>
         let currentImg = 1;
+        const totalImgs = 5;
 
+        // Copies the picture, title and link from the chosen card into the big card.
+        // To change a category, you only ever edit its card in the HTML below.
         function showImage(num) {
             currentImg = num;
-            document.getElementById("mainImage").src = "JS3ImagesStart/images/ireland" + currentImg + ".jpg";
+
+            let card = document.querySelector('.card[data-num="' + num + '"]');
+            let thumb = card.querySelector("img");
+
+            document.getElementById("mainImage").src = thumb.src;
+            document.getElementById("mainImage").alt = thumb.alt;
+            document.getElementById("mainTitle").textContent = card.querySelector(".card-caption").textContent;
+            document.getElementById("mainLink").setAttribute("href", card.dataset.link);
+
             highlight();
         }
 
@@ -143,26 +292,75 @@
 
         function swap(event) {
             event.preventDefault();
-            showImage(Number(this.id.charAt(4)));
+            showImage(Number(this.closest(".card").dataset.num));
+            // Scroll up to the large image so the user sees what they picked
+            document.getElementById("work").scrollIntoView();
         }
 
         function next(event) {
             event.preventDefault();
-            showImage(currentImg === 5 ? 1 : currentImg + 1); // Loop back to the first image
+            showImage(currentImg === totalImgs ? 1 : currentImg + 1); // Loop back to the first
         }
 
         function previous(event) {
             event.preventDefault();
-            showImage(currentImg === 1 ? 5 : currentImg - 1); // Loop back to the last image
+            showImage(currentImg === 1 ? totalImgs : currentImg - 1); // Loop back to the last
+        }
+
+        // A category with no page yet has data-link="#", so do nothing when it is clicked
+        function openProject(event) {
+            if (this.getAttribute("href") === "#") {
+                event.preventDefault();
+            }
         }
     </script>
 </head>
 <body>
 <div class="DivContainer">
-    <h1>Ireland</h1>
+    <nav class="navbar">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#work">Work</a>
+    </nav>
+
+    <header id="about">
+        <!-- Profile photo: delete the <span> and add your picture, e.g.
+             <img src="images/me.jpg" alt="Eoin Cotter"> -->
+        <div class="avatar">
+            <span>Photo</span>
+        </div>
+
+        <h1>Eoin Cotter</h1>
+        <p class="tagline">Immersive Digital Media Student | TUS Limerick</p>
+        <p class="about">
+            I'm a third-year BSc (Hons) Immersive Digital Media student based in Co. Clare.
+            I build websites, games and VR experiences, and this is a selection of my work.
+        </p>
+
+        <ul class="skills" id="skills">
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>PHP</li>
+            <li>Java</li>
+            <li>Unity</li>
+            <li>3D Modeling (Blender)</li>
+            <li>Figma</li>
+            <li>Adobe</li>
+            <li>Motion Graphics</li>
+            <li>Animation</li>
+        </ul>
+    </header>
+
+    <h2 id="work">Featured Work</h2>
 
     <div class="main-card">
-        <img src="JS3ImagesStart/images/ireland1.jpg" alt="Beautiful Irish scenery" id="mainImage">
+        <p id="mainTitle">Motion Graphics</p>
+
+        <a href="MotionGraphics.html" id="mainLink">
+            <img src="images/MonsterAdd.png" alt="Monster ad" id="mainImage">
+        </a>
+        <p class="hint">Click the image to open the project page</p>
 
         <div class="controls">
             <a href="#" id="previous" class="btn">&#8249; Previous</a>
@@ -170,54 +368,63 @@
         </div>
     </div>
 
+    <!-- One card per category. For each card you can change:
+           data-link  = the page that opens from the big image ("#" = no page yet)
+           img src    = the picture (must be .png or .jpg, not .pdf)
+           caption    = the category name -->
     <div class="gallery">
-        <div class="card" data-num="1">
-            <a href="#" id="link1">
-                <img class="demo" src="JS3ImagesStart/images/thumbnails/ireland1_tb.jpg" alt="Beautiful Irish scenery">
-                <div class="card-caption">Beautiful Irish scenery</div>
+        <div class="card" data-num="1" data-link="MotionGraphics.html">
+            <a href="#">
+                <img class="demo" src="images/MonsterAdd.png" alt="Monster ad">
+                <div class="card-caption">Motion Graphics</div>
             </a>
         </div>
 
-        <div class="card" data-num="2">
-            <a href="#" id="link2">
-                <img class="demo" src="JS3ImagesStart/images/thumbnails/ireland2_tb.jpg" alt="Sun setting over irish cliff">
-                <div class="card-caption">Sun setting over Irish cliff</div>
+        <div class="card" data-num="2" data-link="#">
+            <a href="#">
+                <!-- Stand-in picture: export "world peace.pdf" as a PNG and put its path here -->
+                <img class="demo" src="images/Fear%20Fest.jpg" alt="Photoshop poster">
+                <div class="card-caption">Photoshop</div>
             </a>
         </div>
 
-        <div class="card" data-num="3">
-            <a href="#" id="link3">
-                <img class="demo" src="JS3ImagesStart/images/thumbnails/ireland3_tb.jpg" alt="Castle in Ireland">
-                <div class="card-caption">Castle in Ireland</div>
+        <div class="card" data-num="3" data-link="#">
+            <a href="#">
+                <img class="demo" src="JS3ImagesStart/images/ireland3.jpg" alt="3D model">
+                <div class="card-caption">3D Modeling</div>
             </a>
         </div>
 
-        <div class="card" data-num="4">
-            <a href="#" id="link4">
-                <img class="demo" src="JS3ImagesStart/images/thumbnails/ireland4_tb.jpg" alt="Irish Cliffs">
-                <div class="card-caption">Irish Cliffs</div>
+        <div class="card" data-num="4" data-link="#">
+            <a href="#">
+                <img class="demo" src="JS3ImagesStart/images/ireland4.jpg" alt="Unity project">
+                <div class="card-caption">Unity</div>
             </a>
         </div>
 
-        <div class="card" data-num="5">
-            <a href="#" id="link5">
-                <img class="demo" src="JS3ImagesStart/images/thumbnails/ireland5_tb.jpg" alt="Irish town">
-                <div class="card-caption">Irish town</div>
+        <div class="card" data-num="5" data-link="#">
+            <a href="#">
+                <img class="demo" src="JS3ImagesStart/images/ireland5.jpg" alt="Programming project">
+                <div class="card-caption">Programming</div>
             </a>
         </div>
     </div>
 
+    <footer>
+        &copy; 2026 Eoin Cotter
+    </footer>
+
     <script>
-        document.getElementById("link1").addEventListener("click", swap);
-        document.getElementById("link2").addEventListener("click", swap);
-        document.getElementById("link3").addEventListener("click", swap);
-        document.getElementById("link4").addEventListener("click", swap);
-        document.getElementById("link5").addEventListener("click", swap);
+        // Every card link swaps the big image, whatever the card is called
+        document.querySelectorAll(".card a").forEach(function (link) {
+            link.addEventListener("click", swap);
+        });
 
         document.getElementById("previous").addEventListener("click", previous);
         document.getElementById("next").addEventListener("click", next);
+        document.getElementById("mainLink").addEventListener("click", openProject);
 
-        highlight();
+        showImage(1);
     </script>
 </div>
 </body>
