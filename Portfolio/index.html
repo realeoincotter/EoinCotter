@@ -30,7 +30,7 @@
         }
 
         /* Stop the sticky navbar covering the section you scroll to */
-        #about, #skills, #work { scroll-margin-top: 72px; }
+        #about, #skills, #work, #projects, .project { scroll-margin-top: 72px; }
 
         body {
             margin: 0;
@@ -255,6 +255,98 @@
             color: var(--green-300);
         }
 
+        /* Project write-ups */
+        .project {
+            margin-top: 28px;
+            padding: 24px;
+            text-align: left;
+            background: var(--card);
+            border: 1px solid var(--green-900);
+            border-radius: 14px;
+            box-shadow: 0 0 24px rgba(43, 255, 0, 0.06);
+        }
+
+        .project h2 {
+            margin: 0 0 6px;
+            font-size: 28px;
+            color: var(--green-500);
+        }
+
+        .project h3 {
+            margin: 26px 0 6px;
+            font-size: 20px;
+            color: var(--green-300);
+        }
+
+        .project p {
+            margin: 8px 0;
+            line-height: 1.6;
+            color: var(--text);
+        }
+
+        .project .lead {
+            color: var(--muted);
+        }
+
+        .tools {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tools li {
+            padding: 2px 10px;
+            border: 1px solid var(--green-700);
+            border-radius: 999px;
+            font-size: 13px;
+            color: var(--green-300);
+        }
+
+        .shots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+            margin: 14px 0;
+        }
+
+        .shots a { display: block; }
+
+        .shots img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            max-height: 420px;
+            object-fit: contain;
+            background: #000;
+            border: 1px solid var(--green-900);
+            border-radius: 8px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .shots a:hover img {
+            border-color: var(--green-500);
+            box-shadow: 0 0 14px rgba(43, 255, 0, 0.35);
+        }
+
+        .caption {
+            margin: -6px 0 10px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 18px;
+            color: var(--green-300);
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .back:hover { color: var(--green-500); }
+
         footer {
             margin-top: 40px;
             padding-top: 16px;
@@ -307,12 +399,6 @@
             showImage(currentImg === 1 ? totalImgs : currentImg - 1); // Loop back to the last
         }
 
-        // A category with no page yet has data-link="#", so do nothing when it is clicked
-        function openProject(event) {
-            if (this.getAttribute("href") === "#") {
-                event.preventDefault();
-            }
-        }
     </script>
 </head>
 <body>
@@ -321,6 +407,7 @@
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
         <a href="#work">Work</a>
+        <a href="#projects">Projects</a>
     </nav>
 
     <header id="about">
@@ -357,10 +444,10 @@
     <div class="main-card">
         <p id="mainTitle">Motion Graphics</p>
 
-        <a href="MotionGraphics.html" id="mainLink">
-            <img src="images/MonsterAdd.png" alt="Monster ad" id="mainImage">
+        <a href="#motion" id="mainLink">
+            <img src="images/MonsterAdd-web.jpg" alt="Monster Energy ad" id="mainImage">
         </a>
-        <p class="hint">Click the image to open the project page</p>
+        <p class="hint">Click the image to read more about this project</p>
 
         <div class="controls">
             <a href="#" id="previous" class="btn">&#8249; Previous</a>
@@ -369,46 +456,208 @@
     </div>
 
     <!-- One card per category. For each card you can change:
-           data-link  = the page that opens from the big image ("#" = no page yet)
+           data-link  = the section below that the big image jumps to
            img src    = the picture (must be .png or .jpg, not .pdf)
            caption    = the category name -->
     <div class="gallery">
-        <div class="card" data-num="1" data-link="MotionGraphics.html">
+        <div class="card" data-num="1" data-link="#motion">
             <a href="#">
-                <img class="demo" src="images/MonsterAdd.png" alt="Monster ad">
+                <img class="demo" src="images/MonsterAdd-web.jpg" alt="Monster Energy ad">
                 <div class="card-caption">Motion Graphics</div>
             </a>
         </div>
 
-        <div class="card" data-num="2" data-link="#">
+        <div class="card" data-num="2" data-link="#photoshop">
             <a href="#">
-                <!-- Stand-in picture: export "world peace.pdf" as a PNG and put its path here -->
-                <img class="demo" src="images/Fear%20Fest.jpg" alt="Photoshop poster">
+                <img class="demo" src="images/FearFest-web.jpg" alt="Fear Fest poster">
                 <div class="card-caption">Photoshop</div>
             </a>
         </div>
 
-        <div class="card" data-num="3" data-link="#">
+        <div class="card" data-num="3" data-link="#modeling">
             <a href="#">
-                <img class="demo" src="JS3ImagesStart/images/ireland3.jpg" alt="3D model">
+                <img class="demo" src="images/HouseBlendScreenshot%20(1).png" alt="Blender pool table scene">
                 <div class="card-caption">3D Modeling</div>
             </a>
         </div>
 
-        <div class="card" data-num="4" data-link="#">
+        <div class="card" data-num="4" data-link="#unity">
             <a href="#">
-                <img class="demo" src="JS3ImagesStart/images/ireland4.jpg" alt="Unity project">
+                <img class="demo" src="images/unity-placeholder.png" alt="Unity VR projects">
                 <div class="card-caption">Unity</div>
             </a>
         </div>
 
-        <div class="card" data-num="5" data-link="#">
+        <div class="card" data-num="5" data-link="#programming">
             <a href="#">
-                <img class="demo" src="JS3ImagesStart/images/ireland5.jpg" alt="Programming project">
+                <img class="demo" src="images/Euro-dollar1.png" alt="Java currency converter">
                 <div class="card-caption">Programming</div>
             </a>
         </div>
     </div>
+
+    <h2 id="projects">Projects in Detail</h2>
+
+    <!-- ===== Motion Graphics ===== -->
+    <section class="project" id="motion">
+        <h2>Motion Graphics</h2>
+        <p class="lead">Short, punchy visuals where type, colour and movement carry the message.</p>
+        <ul class="tools"><li>Adobe apps</li><li>Motion graphics</li><li>Typography</li></ul>
+
+        <h3>Monster Energy: "Unleash your Beast"</h3>
+        <div class="shots">
+            <a href="images/MonsterAdd-web.jpg" target="_blank" rel="noopener"><img src="images/MonsterAdd-web.jpg" alt="Monster Energy ad: a black cat silhouette with glowing green eyes clawing down the frame"></a>
+        </div>
+        <p>
+            A concept advert for Monster Energy built around the brand's black-and-green identity.
+            A black cat silhouette with glowing green eyes claws its way down the frame, a visual
+            take on the tagline "Unleash your Beast". The title uses contrasting typefaces: a clean
+            outlined serif for "Unleash your" against a jagged, glowing green display face for
+            "BEAST", so the key word hits hardest.
+        </p>
+        <p>
+            The challenge was keeping the composition simple and high-contrast: one character,
+            one accent colour, and plenty of black space so the eye follows the claws down to
+            the tagline.
+        </p>
+        <a class="back" href="#work">&#8593; Back to gallery</a>
+    </section>
+
+    <!-- ===== Photoshop ===== -->
+    <section class="project" id="photoshop">
+        <h2>Photoshop</h2>
+        <p class="lead">Poster and photo-manipulation work: compositing, cut-outs, lighting and type.</p>
+        <ul class="tools"><li>Adobe Photoshop</li><li>Compositing</li><li>Poster design</li></ul>
+
+        <h3>Fear Fest</h3>
+        <div class="shots">
+            <a href="images/FearFest-web.jpg" target="_blank" rel="noopener"><img src="images/FearFest-web.jpg" alt="Fear Fest Halloween poster with glowing jack-o'-lanterns"></a>
+        </div>
+        <p>
+            A Halloween event poster for a free night at the TUS Students' Union on October 31st.
+            A cluster of glowing jack-o'-lanterns fades into smoky darkness, with the biggest
+            face anchoring the left of the poster. Silver-chrome lettering sits in the dark
+            space on the right so the event name, date and "free" message read clearly against
+            the warm orange glow.
+        </p>
+
+        <h3>Harmony Over Conflict</h3>
+        <div class="shots">
+            <a href="images/HarmonyOverConflict-web.jpg" target="_blank" rel="noopener"><img src="images/HarmonyOverConflict-web.jpg" alt="Harmony Over Conflict: dove silhouettes on a ship's bow at sunset"></a>
+        </div>
+        <p>
+            A photo-manipulation on the theme of peace. Two dove silhouettes, one perched and one
+            taking off, are composited over a sunset behind the bow of a moored ship, with a small
+            flock of birds drifting away into the light. The title is split across three colours,
+            white, olive and deep red, so "Harmony" and "Conflict" are visually separated, with
+            "Over" in between.
+        </p>
+        <a class="back" href="#work">&#8593; Back to gallery</a>
+    </section>
+
+    <!-- ===== 3D Modeling ===== -->
+    <section class="project" id="modeling">
+        <h2>3D Modeling</h2>
+        <p class="lead">Modelling, texturing, lighting and camera work in Blender.</p>
+        <ul class="tools"><li>Blender</li><li>Modelling</li><li>Materials &amp; shaders</li><li>Animation</li><li>Cameras</li></ul>
+
+        <h3>Pool table animation</h3>
+        <div class="shots">
+            <a href="images/HouseBlendScreenshot%20(1).png" target="_blank" rel="noopener"><img src="images/HouseBlendScreenshot%20(1).png" alt="Blender scene with a pool table, balls, cue and several cameras"></a>
+        </div>
+        <p>
+            A modelled pool table with felt, wooden legs, balls and a cue, set in a stadium-style
+            environment. The scene uses several cameras that cut between angles along the timeline,
+            rendered at 1280&times;720 and 25 fps over 750 frames (a 30-second animation).
+        </p>
+
+        <h3>House and landscape scene</h3>
+        <div class="shots">
+            <a href="images/HouseBlendScreenshot%20(2).png" target="_blank" rel="noopener"><img src="images/HouseBlendScreenshot%20(2).png" alt="Blender modelling view of a small house and a bare tree"></a>
+            <a href="images/HouseBlendScreenshot%20(3).png" target="_blank" rel="noopener"><img src="images/HouseBlendScreenshot%20(3).png" alt="Blender shading view with an image-textured skybox node setup"></a>
+        </div>
+        <p class="caption">Left: blocking out the house and tree in Edit Mode. Right: the shader node setup for the skybox.</p>
+        <p>
+            A small house with a gravel interior, a tree and a set of modelled apples, built in the
+            Modeling workspace and then textured in Shading. The surrounding environment is an
+            image-textured skybox wired through the material's node tree, and the lighting is
+            organised into its own collection of point lights.
+        </p>
+        <a class="back" href="#work">&#8593; Back to gallery</a>
+    </section>
+
+    <!-- ===== Unity ===== -->
+    <section class="project" id="unity">
+        <h2>Unity</h2>
+        <p class="lead">VR interaction prototypes for the Meta Quest 2.</p>
+        <ul class="tools"><li>Unity</li><li>C#</li><li>XR Interaction Toolkit</li><li>Meta Quest 2</li></ul>
+
+        <div class="shots">
+            <img src="images/unity-placeholder.png" alt="Screenshots coming soon">
+        </div>
+
+        <h3>VR Tennis</h3>
+        <p>
+            A VR prototype of tennis played against a wall, built for an XR Experience Analysis
+            and Interaction Prototype assessment. The brief was to analyse an existing XR
+            experience, rebuild one of its key interactions, and write up the result. I based mine
+            on Wii Sports Tennis and tested it on a Quest 2.
+        </p>
+
+        <h3>Interaction Technique Bake-Off</h3>
+        <p>
+            A practical project comparing different ways of interacting in VR: ray interaction,
+            direct grab and gaze-plus-pinch. Each technique is a variant launched from a single main
+            menu, built with Unity 6 and XR Interaction Toolkit 3.x so they can be tried and compared
+            side by side.
+        </p>
+
+        <h3>Lost-cat story game (in development)</h3>
+        <p>
+            A story-driven game about a lost cat crossing dangerous terrain and cities, avoiding
+            people who appear as monsters, with the goal of getting back to its family. I'm
+            developing a 2D walk-cycle animation for the cat as part of it. This is a project i am working
+            on alone and for fun.
+        </p>
+        <a class="back" href="#work">&#8593; Back to gallery</a>
+    </section>
+
+    <!-- ===== Programming ===== -->
+    <section class="project" id="programming">
+        <h2>Programming</h2>
+        <p class="lead">Java desktop apps and full-stack web projects.</p>
+        <ul class="tools"><li>Java</li><li>Swing</li><li>IntelliJ IDEA</li><li>Spring Boot</li><li>HTML / CSS / JavaScript</li><li>PHP</li></ul>
+
+        <h3>Currency Converter (Java Swing)</h3>
+        <div class="shots">
+            <a href="images/Euro-dollar1.png" target="_blank" rel="noopener"><img src="images/Euro-dollar1.png" alt="Currency converter GUI with a number keypad"></a>
+            <a href="images/Euro-dollar2.png" target="_blank" rel="noopener"><img src="images/Euro-dollar2.png" alt="Converting 100 dollars to euro"></a>
+            <a href="images/Euro-dollar3.png" target="_blank" rel="noopener"><img src="images/Euro-dollar3.png" alt="Converting 100 euro to dollars"></a>
+        </div>
+        <p class="caption">Entering an amount, then converting dollars to euro and euro to dollars.</p>
+        <p>
+            A desktop calculator-style converter built in IntelliJ IDEA with a Swing GUI. You tap an
+            amount on the on-screen keypad (digits, decimal point and Clear), then press
+            <em>Dollar to Euro</em> or <em>Euro to Dollar</em> to see the converted value in the
+            display. The layout was designed with IntelliJ's GUI form designer and the button
+            logic is written in Java.
+        </p>
+
+        <h3>CreatoShowcase (Spring Boot)</h3>
+        <P>In development as a part of my end of semester project.</P>
+        <p>
+            A Spring Boot web app for showing off creative work. Users can add, edit and delete
+            showcases and the projects inside each one, backed by a database. The front end was
+            restyled to match the gallery-style homepage from my course.
+        </p>
+
+        <h3>This website</h3>
+        <p>
+            Written by hand in HTML, CSS and JavaScript. The gallery swaps images and scrolls to
+            each write-up, and the navbar scrolls smoothly between sections.
+        </p>
+        <a class="back" href="#work">&#8593; Back to gallery</a>
+    </section>
 
     <footer>
         &copy; 2026 Eoin Cotter
@@ -422,8 +671,6 @@
 
         document.getElementById("previous").addEventListener("click", previous);
         document.getElementById("next").addEventListener("click", next);
-        document.getElementById("mainLink").addEventListener("click", openProject);
-
         showImage(1);
     </script>
 </div>
