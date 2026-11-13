@@ -388,6 +388,95 @@
 
         .back:hover { color: var(--green-500); }
 
+        /* Lightbox: the bigger image card that opens over the page */
+        .shots a, .feature a { cursor: zoom-in; }
+
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(0, 0, 0, 0.88);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s, visibility 0.2s;
+        }
+
+        .lightbox.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-card {
+            position: relative;
+            max-width: min(1100px, 100%);
+            margin: 0;
+            padding: 14px;
+            background: var(--card);
+            border: 1px solid var(--green-700);
+            border-radius: 14px;
+            box-shadow: 0 0 40px rgba(43, 255, 0, 0.25);
+            transform: scale(0.96);
+            transition: transform 0.2s;
+        }
+
+        .lightbox.open .lightbox-card { transform: scale(1); }
+
+        #lightboxImage {
+            display: block;
+            max-width: 100%;
+            max-height: calc(100vh - 150px);
+            margin: 0 auto;
+            border-radius: 8px;
+        }
+
+        #lightboxCaption {
+            margin: 10px 28px 0;
+            font-size: 14px;
+            line-height: 1.4;
+            color: var(--muted);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -14px;
+            right: -14px;
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 50%;
+            background: var(--green-500);
+            color: #000;
+            font-size: 22px;
+            font-weight: bold;
+            line-height: 1;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+
+        .lightbox-close:hover {
+            background: var(--green-300);
+            box-shadow: 0 0 14px rgba(43, 255, 0, 0.6);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .lightbox, .lightbox-card { transition: none; }
+        }
+
+
+        .clip {
+            display: block;
+            width: 100%;
+            max-height: 480px;
+            margin: 14px 0;
+            background: #000;
+            border: 1px solid var(--green-900);
+            border-radius: 8px;
+        }
+
         footer {
             margin-top: 40px;
             padding-top: 16px;
@@ -395,6 +484,8 @@
             font-size: 14px;
             color: var(--muted);
         }
+
+
     </style>
     <script>
         let currentImg = 1;
@@ -452,10 +543,9 @@
     </nav>
 
     <header id="about">
-        <!-- Profile photo: delete the <span> and add your picture, e.g.
-             <img src="images/me.jpg" alt="Eoin Cotter"> -->
+
         <div class="avatar">
-            <span>Photo</span>
+            <img src="images/ProfileIcon.jpg" alt="Photo of me captured in Glor during a live school concert">
         </div>
 
         <h1>Eoin Cotter</h1>
@@ -488,7 +578,7 @@
         <a href="#motion" id="mainLink">
             <img src="images/MonsterAdd-web.jpg" alt="Monster Energy ad" id="mainImage">
         </a>
-        <p class="hint">Click the image to read more about this project</p>
+        <p class="hint">Click the image above to jump to more details about this project</p>
 
         <div class="controls">
             <a href="#" id="previous" class="btn">&#8249; Previous</a>
@@ -517,7 +607,7 @@
 
         <div class="card" data-num="3" data-link="#modeling">
             <a href="#">
-                <img class="demo" src="images/HouseBlendScreenshot%20(1).png" alt="Blender pool table scene">
+                <img class="demo" src="images/PoolTable.png" alt="Blender pool table scene">
                 <div class="card-caption">3D Modeling</div>
             </a>
         </div>
@@ -561,6 +651,20 @@
             one accent colour, and plenty of black space so the eye follows the claws down to
             the tagline.
         </p>
+        <video class="clip" controls preload="metadata" poster="images/MonsterAdd-web.jpg">
+            <source src="Videos/Monster%20addvertisement(Finished).mp4" type="video/mp4">
+        </video>
+
+        <h3>Knight: Adventure</h3>
+
+        <P>This was an animation I made as a part of my motion graphics module. This was done with 3 images on adobe after effects, not videos. By zooming in and dropping down, along with some 3d editing,
+        I was able to make 3 images look like a moving scene.</P>
+        <video class="clip" controls preload="metadata" poster="images/Knight.png">
+            <source src="Videos/Knight%20video.mp4" type="video/mp4">
+        </video>
+        <p></p>
+
+
         <a class="back" href="#work">&#8593; Back to gallery</a>
     </section>
 
@@ -604,7 +708,7 @@
 
         <h3>Pool table animation</h3>
         <div class="shots">
-            <a href="images/HouseBlendScreenshot%20(1).png" target="_blank" rel="noopener"><img src="images/HouseBlendScreenshot%20(1).png" alt="Blender scene with a pool table, balls, cue and several cameras"></a>
+            <a href="images/PoolTable.png" target="_blank" rel="noopener"><img src="images/PoolTable.png" alt="Blender scene with a pool table, balls, cue and several cameras"></a>
         </div>
         <p>
             A modelled pool table with felt, wooden legs, balls and a cue, set in a stadium-style
@@ -612,14 +716,21 @@
             rendered at 1280&times;720 and 25 fps over 750 frames (a 30-second animation).
         </p>
 
+        <video class="clip" controls preload="metadata" poster="images/PoolTable.png">
+            <source src="Videos/PoolAnimation.mp4" type="video/mp4">
+        </video>
+
         <h3>House and landscape scene</h3>
         <div class="shots">
             <a href="images/HouseBlendScreenshot%20(2).png" target="_blank" rel="noopener"><img src="images/HouseBlendScreenshot%20(2).png" alt="Blender modelling view of a small house and a bare tree"></a>
             <a href="images/HouseBlendScreenshot%20(3).png" target="_blank" rel="noopener"><img src="images/HouseBlendScreenshot%20(3).png" alt="Blender shading view with an image-textured skybox node setup"></a>
+            <a href="images/HouseBlend%20(1).png" target="_blank" rel="noopener"><img src="images/HouseBlend%20(1).png" alt="Blender shading view of the front of the house"></a>
+            <a href="images/HouseBlend%20(2).png" target="_blank" rel="noopener"><img src="images/HouseBlend%20(2).png" alt="Blender shading view of the back of house"></a>
+
         </div>
-        <p class="caption">Left: blocking out the house and tree in Edit Mode. Right: the shader node setup for the skybox.</p>
+        <p class="caption">Blender models of a small house with a fruit bowl on display.</p>
         <p>
-            A small house with a gravel interior, a tree and a set of modelled apples, built in the
+            A small house with a wooden floor , a tree and a set of modelled apples, built in the
             Modeling workspace and then textured in Shading. The surrounding environment is an
             image-textured skybox wired through the material's node tree, and the lighting is
             organised into its own collection of point lights.
@@ -850,6 +961,15 @@
         &copy; 2026 Eoin Cotter
     </footer>
 
+    <!-- Lightbox: one shared pop-up card that every project image opens in -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image" aria-hidden="true">
+        <figure class="lightbox-card">
+            <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+            <img id="lightboxImage" src="" alt="">
+            <figcaption id="lightboxCaption"></figcaption>
+        </figure>
+    </div>
+
     <script>
         // Every card link swaps the big image, whatever the card is called
         document.querySelectorAll(".card a").forEach(function (link) {
@@ -859,6 +979,53 @@
         document.getElementById("previous").addEventListener("click", previous);
         document.getElementById("next").addEventListener("click", next);
         showImage(1);
+
+        // ----- Lightbox -----
+        // Any image link inside .shots or .feature opens in the pop-up card
+        // instead of loading the image file as its own page.
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImage = document.getElementById("lightboxImage");
+        const lightboxCaption = document.getElementById("lightboxCaption");
+        const lightboxClose = document.getElementById("lightboxClose");
+        let lastFocused = null; // the link that was clicked, so focus can return to it
+
+        function openLightbox(event) {
+            event.preventDefault();
+            let thumb = this.querySelector("img");
+
+            lastFocused = this;
+            lightboxImage.src = this.getAttribute("href"); // the full-size image
+            lightboxImage.alt = thumb.alt;
+            lightboxCaption.textContent = thumb.alt;
+
+            lightbox.classList.add("open");
+            lightbox.setAttribute("aria-hidden", "false");
+            document.body.style.overflow = "hidden"; // stop the page scrolling behind
+            lightboxClose.focus();
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove("open");
+            lightbox.setAttribute("aria-hidden", "true");
+            document.body.style.overflow = "";
+            if (lastFocused) { lastFocused.focus(); }
+        }
+
+        document.querySelectorAll(".shots a, .feature a").forEach(function (link) {
+            link.addEventListener("click", openLightbox);
+        });
+
+        lightboxClose.addEventListener("click", closeLightbox);
+
+        // Clicking the dark area around the card closes it
+        lightbox.addEventListener("click", function (event) {
+            if (event.target === lightbox) { closeLightbox(); }
+        });
+
+        // So does the Escape key
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape" && lightbox.classList.contains("open")) { closeLightbox(); }
+        });
     </script>
 </div>
 </body>
