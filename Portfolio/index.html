@@ -331,6 +331,47 @@
             box-shadow: 0 0 14px rgba(43, 255, 0, 0.35);
         }
 
+        /* One screenshot with its own paragraph beside it */
+        .feature {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+            gap: 18px;
+            align-items: start;
+            margin: 18px 0;
+            padding-top: 18px;
+            border-top: 1px solid var(--green-900);
+        }
+
+        .feature a { display: block; }
+
+        .feature img {
+            display: block;
+            width: 100%;
+            border: 1px solid var(--green-900);
+            border-radius: 8px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .feature a:hover img {
+            border-color: var(--green-500);
+            box-shadow: 0 0 14px rgba(43, 255, 0, 0.35);
+        }
+
+        .feature h4 {
+            margin: 0 0 4px;
+            font-size: 16px;
+            color: var(--green-300);
+        }
+
+        .feature p { margin: 0; }
+
+        /* Wide images (moodboards, Figma boards) sit above their text */
+        .feature.wide { grid-template-columns: 1fr; }
+
+        @media (max-width: 640px) {
+            .feature { grid-template-columns: 1fr; }
+        }
+
         .caption {
             margin: -6px 0 10px;
             font-size: 13px;
@@ -483,7 +524,7 @@
 
         <div class="card" data-num="4" data-link="#unity">
             <a href="#">
-                <img class="demo" src="images/unity-placeholder.png" alt="Unity VR projects">
+                <img class="demo" src="images/UnityTennis5-web.jpg" alt="VR tennis court in Unity">
                 <div class="card-caption">Unity</div>
             </a>
         </div>
@@ -592,17 +633,97 @@
         <p class="lead">VR interaction prototypes for the Meta Quest 2.</p>
         <ul class="tools"><li>Unity</li><li>C#</li><li>XR Interaction Toolkit</li><li>Meta Quest 2</li></ul>
 
-        <div class="shots">
-            <img src="images/unity-placeholder.png" alt="Screenshots coming soon">
-        </div>
-
         <h3>VR Tennis</h3>
         <p>
             A VR prototype of tennis played against a wall, built for an XR Experience Analysis
             and Interaction Prototype assessment. The brief was to analyse an existing XR
             experience, rebuild one of its key interactions, and write up the result. I based mine
-            on Wii Sports Tennis and tested it on a Quest 2.
+            on Wii Sports Tennis and tested it on a Quest 2. The screenshots below follow the
+            project from research to the current build.
         </p>
+        <div class="feature wide">
+            <a href="images/MoodboardTennis-web.jpg" target="_blank" rel="noopener"><img src="images/MoodboardTennis-web.jpg" alt="Research moodboard with Wii Sports Tennis, VR tennis games and zero-gravity VR references" loading="lazy"></a>
+            <div>
+                <h4>Research moodboard</h4>
+                <p>
+                    My starting point. The left board collects tennis references: Wii Sports' solo mode where you hit the ball at a target on a wall, plus VR and mixed reality tennis games. It is also where I noted the mechanics worth borrowing, such as pressing a button to re-summon the ball when it rolls out of reach. The right board is research for a separate movement idea, looking at how Echo VR, Superhot VR and Gorilla Tag handle zero gravity and arm-driven movement.
+                </p>
+            </div>
+        </div>
+        <div class="feature">
+            <a href="images/UnityTennis2-web.jpg" target="_blank" rel="noopener"><img src="images/UnityTennis2-web.jpg" alt="Unity scene view of an untextured grey tennis court with a net and a back wall" loading="lazy"></a>
+            <div>
+                <h4>Blocking out the court</h4>
+                <p>
+                    The first greybox. The court is a handful of cubes and a plane with a tall wall at the far end to hit against, a net across the middle, and the ball, racket and XR Origin placed in the hierarchy. Nothing is textured yet. The aim at this stage was only to get the scale and distances feeling right from the player's position.
+                </p>
+            </div>
+        </div>
+        <div class="feature">
+            <a href="images/UnityTennis3-web.jpg" target="_blank" rel="noopener"><img src="images/UnityTennis3-web.jpg" alt="Unity game view showing a racket, ball and simulated VR controllers with the XR Interaction Simulator panel open" loading="lazy"></a>
+            <div>
+                <h4>Testing without the headset</h4>
+                <p>
+                    Play mode running through the XR Interaction Simulator, which lets me drive the headset and both controllers from the keyboard and mouse. It meant I could check that the right controller, its trigger and grip inputs, and the racket were all wired up before putting the Quest 2 on, which saves a lot of time on small changes.
+                </p>
+            </div>
+        </div>
+        <div class="feature">
+            <a href="images/UnityTennis4-web.jpg" target="_blank" rel="noopener"><img src="images/UnityTennis4-web.jpg" alt="Unity inspector for the racket showing Rigidbody, XR Grab Interactable and Mesh Collider components" loading="lazy"></a>
+            <div>
+                <h4>Making the racket grabbable</h4>
+                <p>
+                    The racket is a detailed model made of many parts (frame inlays, grommets, grip wrap), set up with a Rigidbody, an XR Grab Interactable so it can be picked up, and a Mesh Collider. Collision detection is set to Continuous Dynamic, because a fast swing can otherwise pass straight through the ball between physics frames.
+                </p>
+            </div>
+        </div>
+        <div class="feature">
+            <a href="images/UnityTennis5-web.jpg" target="_blank" rel="noopener"><img src="images/UnityTennis5-web.jpg" alt="Unity scene with a green grass court, brown walls, a net and the racket and ball" loading="lazy"></a>
+            <div>
+                <h4>Adding colour and materials</h4>
+                <p>
+                    The same court with materials applied: green grass underfoot, brown walls and a meshed net. It is a small change technically, but it makes the space far easier to read in the headset, since the ball now stands out against the surfaces and the wall is clearly the target.
+                </p>
+            </div>
+        </div>
+        <div class="feature">
+            <a href="images/UnityTennis6-web.jpg" target="_blank" rel="noopener"><img src="images/UnityTennis6-web.jpg" alt="The tennis court under a starry nebula skybox" loading="lazy"></a>
+            <div>
+                <h4>A second scene: Nebula Grand Slam</h4>
+                <p>
+                    A new scene that reuses the court as a prefab and swaps the plain sky for a space skybox. I wanted the prototype to have more of an identity than a grey practice court, and the dark background also makes the bright ball easier to track.
+                </p>
+            </div>
+        </div>
+        <div class="feature">
+            <a href="images/UnityTennis7-web.jpg" target="_blank" rel="noopener"><img src="images/UnityTennis7-web.jpg" alt="Unity scene with the court walls selected and an animation timeline open" loading="lazy"></a>
+            <div>
+                <h4>Animating the walls</h4>
+                <p>
+                    Here the starting court is selected with an Animator attached, and the Animation window shows a clip called WallsDissapear with keyframes on its position. The white outline above the court is the selected object partway through the clip while I scrub the timeline.
+                </p>
+            </div>
+        </div>
+        <div class="feature">
+            <a href="images/UnityTennis8-web.jpg" target="_blank" rel="noopener"><img src="images/UnityTennis8-web.jpg" alt="The court with its walls lowered away, leaving the net and grass floating in space" loading="lazy"></a>
+            <div>
+                <h4>Walls gone</h4>
+                <p>
+                    The end of the same clip. The practice walls have dropped out of view. The idea is that the player is to compete in a low gravity obstacle  tournament. Its focused more on fun than anything else.
+                </p>
+            </div>
+        </div>
+
+        <h3>VR Escape Room (concept)</h3>
+        <div class="feature wide">
+            <a href="images/MoodboardEscapeRoom-web.jpg" target="_blank" rel="noopener"><img src="images/MoodboardEscapeRoom-web.jpg" alt="Moodboard for a VR escape room with a locked room, a shadowy figure, a flashlight and an apartment interior" loading="lazy"></a>
+            <div>
+                <h4>Moodboard</h4>
+                <p>
+                    The planning board for a suspense-focused VR escape room: you are locked in a room while something watches you. The player has to solve at least three puzzles, with riddles and code fragments scattered around the map, and clues that should not take too much searching to find. I was realistic about scope here. Instead of coding an NPC that follows the player through the house, the plan uses windows, timers and audio cues: a sound plays when the figure appears, and if the player misses it for too long it breaks in. I also noted three layout options (a four-room apartment, a single box room or a small bungalow) and a flashlight or headlamp as a stretch goal.
+                </p>
+            </div>
+        </div>
 
         <h3>Interaction Technique Bake-Off</h3>
         <p>
@@ -626,7 +747,7 @@
     <section class="project" id="programming">
         <h2>Programming</h2>
         <p class="lead">Java desktop apps and full-stack web projects.</p>
-        <ul class="tools"><li>Java</li><li>Swing</li><li>IntelliJ IDEA</li><li>Spring Boot</li><li>HTML / CSS / JavaScript</li><li>PHP</li></ul>
+        <ul class="tools"><li>Java</li><li>Swing</li><li>IntelliJ IDEA</li><li>Spring Boot</li><li>HTML / CSS / JavaScript</li><li>Bootstrap</li><li>Figma</li><li>PHP</li></ul>
 
         <h3>Currency Converter (Java Swing)</h3>
         <div class="shots">
@@ -642,6 +763,72 @@
             display. The layout was designed with IntelliJ's GUI form designer and the button
             logic is written in Java.
         </p>
+
+        <h3>My Game Picks (Games Fleadh webpage)</h3>
+        <p>
+            A small Bootstrap page built for a Games Fleadh project, presenting three games I
+            would recommend.
+        </p>
+        <div class="feature">
+            <a href="images/GamesFleadh1-web.jpg" target="_blank" rel="noopener"><img src="images/GamesFleadh1-web.jpg" alt="My Game Picks webpage with three cards for Valorant, Terraria and Phasmophobia" loading="lazy"></a>
+            <div>
+                <h4>The page</h4>
+                <p>
+                    A dark navbar with my logo on one side and the Games Fleadh logo on the other, above a row of three Bootstrap cards for Valorant, Terraria and Phasmophobia. Each card has the game's artwork, its name and a More Info button, and the row is centred so it reflows on smaller screens.
+                </p>
+            </div>
+        </div>
+        <div class="feature">
+            <a href="images/GamesFleadh3-web.jpg" target="_blank" rel="noopener"><img src="images/GamesFleadh3-web.jpg" alt="A modal window describing Valorant open over the game cards" loading="lazy"></a>
+            <div>
+                <h4>More Info: Valorant</h4>
+                <p>
+                    Pressing More Info opens a Bootstrap modal over the page instead of navigating away. The modal header picks up the page's coral colour, and the body shows a larger version of the artwork with a short description of the game underneath.
+                </p>
+            </div>
+        </div>
+        <div class="feature">
+            <a href="images/GamesFleadh2-web.jpg" target="_blank" rel="noopener"><img src="images/GamesFleadh2-web.jpg" alt="A modal window describing Terraria open over the game cards" loading="lazy"></a>
+            <div>
+                <h4>More Info: Terraria</h4>
+                <p>
+                    The same modal pattern reused for Terraria. Every game follows one card-plus-modal structure, so adding another pick is a matter of copying a block and changing the image, title and text.
+                </p>
+            </div>
+        </div>
+
+        <h3>Esports News website (Figma)</h3>
+        <p>
+            The design stage of a front-end development project: an esports news site planned
+            from user research through wireframes to a high-fidelity prototype.
+        </p>
+        <div class="feature wide">
+            <a href="images/EsportsPersonas-web.jpg" target="_blank" rel="noopener"><img src="images/EsportsPersonas-web.jpg" alt="Three user personas, Liam, Mason and Dante Cole, each with problem, pains, goal, benefits, trigger and barriers" loading="lazy"></a>
+            <div>
+                <h4>User personas</h4>
+                <p>
+                    Three personas, Liam, Mason and Dante Cole, each a competitive gamer who follows esports closely. All three share one core problem: news is scattered across sites and social feeds, slow to be confirmed and often biased. Laying out each persona's pains, goals, triggers and barriers gave the site its purpose, which is to be a single trusted source that is quick to scan.
+                </p>
+            </div>
+        </div>
+        <div class="feature wide">
+            <a href="images/EsportsNews2-web.jpg" target="_blank" rel="noopener"><img src="images/EsportsNews2-web.jpg" alt="Figma canvas with wireframes, a finished homepage and login and sign-up screens" loading="lazy"></a>
+            <div>
+                <h4>Wireframes to screens</h4>
+                <p>
+                    The Figma canvas for the whole site. Grey-box wireframes set the layout first: a large hero story, a column of smaller stories, a list of news by game and a long article page. The finished frames then apply the yellow-and-cream palette and real imagery. The canvas also includes log-in and sign-up overlays with email fields and Continue with Google and X options.
+                </p>
+            </div>
+        </div>
+        <div class="feature">
+            <a href="images/EsportsNews1-web.jpg" target="_blank" rel="noopener"><img src="images/EsportsNews1-web.jpg" alt="High-fidelity esports news homepage with a hero image, side stories and a navigation bar" loading="lazy"></a>
+            <div>
+                <h4>Homepage prototype</h4>
+                <p>
+                    The homepage in the prototype. A search bar and navigation (Home, News, Features, Interviews, Betting, Sign In) run across the top, with the lead story as a large hero image and three smaller stories stacked beside it. Hovering the hero opens a card with the headline and summary, which keeps the page image-led while still letting readers preview a story before clicking through.
+                </p>
+            </div>
+        </div>
 
         <h3>CreatoShowcase (Spring Boot)</h3>
         <P>In development as a part of my end of semester project.</P>
