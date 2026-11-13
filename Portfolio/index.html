@@ -30,7 +30,7 @@
         }
 
         /* Stop the sticky navbar covering the section you scroll to */
-        #about, #skills, #work, #projects, .project { scroll-margin-top: 72px; }
+        #about, #skills, #work, #projects, #contact, .project { scroll-margin-top: 72px; }
 
         body {
             margin: 0;
@@ -477,6 +477,43 @@
             border-radius: 8px;
         }
 
+        /* Contact section */
+        .contact {
+            margin-top: 28px;
+            padding: 28px 24px;
+            background: var(--card);
+            border: 1px solid var(--green-900);
+            border-radius: 14px;
+            box-shadow: 0 0 24px rgba(43, 255, 0, 0.06);
+        }
+
+        .contact p {
+            max-width: 560px;
+            margin: 0 auto;
+            line-height: 1.5;
+            color: var(--muted);
+        }
+
+        .contact-links {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        /* Outlined version of .btn for the secondary links */
+        .btn.outline {
+            background: transparent;
+            color: var(--green-300);
+            border: 1px solid var(--green-700);
+        }
+
+        .btn.outline:hover {
+            background: var(--green-500);
+            color: #000;
+        }
+
         footer {
             margin-top: 40px;
             padding-top: 16px;
@@ -540,6 +577,7 @@
         <a href="#skills">Skills</a>
         <a href="#work">Work</a>
         <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
     </nav>
 
     <header id="about">
@@ -658,7 +696,7 @@
         <h3>Knight: Adventure</h3>
 
         <P>This was an animation I made as a part of my motion graphics module. This was done with 3 images on adobe after effects, not videos. By zooming in and dropping down, along with some 3d editing,
-        I was able to make 3 images look like a moving scene.</P>
+            I was able to make 3 images look like a moving scene.</P>
         <video class="clip" controls preload="metadata" poster="images/Knight.png">
             <source src="Videos/Knight%20video.mp4" type="video/mp4">
         </video>
@@ -957,11 +995,27 @@
         <a class="back" href="#work">&#8593; Back to gallery</a>
     </section>
 
+    <!-- ===== Contact ===== -->
+    <h2 id="contact">Contact Me</h2>
+
+    <section class="contact">
+        <p>
+            I'm currently looking for a work placement and I'm always happy to talk about
+            projects, collaborations or opportunities. The quickest way to reach me is by email.
+        </p>
+
+        <div class="contact-links">
+            <a class="btn" href="mailto:eoincotter05.@gmail.com">Email me</a>
+            <a class="btn outline" href="https://www.linkedin.com/in/eoincotter05" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="btn outline" href="https://github.com/realeoincotter" target="_blank" rel="noopener">GitHub</a>
+        </div>
+        <p class="hint">or copy my address: cottereoin72@gmail.com</p>
+    </section>
+
     <footer>
         &copy; 2026 Eoin Cotter
     </footer>
 
-    <!-- Lightbox: one shared pop-up card that every project image opens in -->
     <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged image" aria-hidden="true">
         <figure class="lightbox-card">
             <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
